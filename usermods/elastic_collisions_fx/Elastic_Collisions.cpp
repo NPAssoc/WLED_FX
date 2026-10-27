@@ -87,7 +87,7 @@ public:
   }
 
   static nfixed fixedDiv(nfixed a, nfixed b) {
-    if (a == b)           // (unlikely) safety
+    if (b == 0)           // avoid division by zero
       return 0;
     return ((int64_t)a << SPHERE_PREC_SHIFT) / b;
   }
@@ -331,7 +331,7 @@ public:
   // For diagnotistics only.
   void print(int instNo)
   {
-    Serial.printf("No. %d, x = %.2f, y = %.2f, vx = %.2f, vy = %.2f, radius = %.2f, density = %.2f, mass = %.2f\n", instNo,
+    DEBUG_PRINTF("No. %d, x = %.2f, y = %.2f, vx = %.2f, vy = %.2f, radius = %.2f, density = %.2f, mass = %.2f\n", instNo,
                   FLOAT_IT(x), FLOAT_IT(y), FLOAT_IT(vx), FLOAT_IT(vy),
                   FLOAT_IT(radius), FLOAT_IT(_density), FLOAT_IT(mass()));
   }
@@ -480,7 +480,7 @@ void mode_ElasticCollisions(void) {              // by Nicholas Pisarro, Jr.
     }
     
     SEGMENT.aux0 = (numSpheres << SPHERES_DESIRED_SHIFT) | (SEGMENT.aux0 & SPHERES_ALLOCATED);
-    SEGMENT.step =  millis() + BOUNCE_CYCLE_TIME;
+    SEGMENT.step =  strip.now + BOUNCE_CYCLE_TIME;
     SEGMENT.aux1 = elasticLifetime();
   }
 
