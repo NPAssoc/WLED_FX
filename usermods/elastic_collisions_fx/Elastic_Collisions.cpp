@@ -149,7 +149,7 @@ public:
     if (length >= dist || length == 0)
         return; // Already long enough, or degenerate point
 
-\   nfixed scale = fixedDiv(dist - length, length << 1);
+    nfixed scale = fixedDiv(dist - length, length << 1);
 
     nfixed offsetX = fixedMult(dx, scale);
     nfixed offsetY = fixedMult(dy, scale);
