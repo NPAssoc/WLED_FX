@@ -7920,9 +7920,13 @@ void mode_XmasTwinkle(void) {
     int16_t cycleTime = light->retwnkleTime - interval;
     if (cycleTime <= 0 || SEGMENT.aux1 != SEGMENT.speed)
     {
+      int32_t prevMax = light->maxCycle;
       light->maxCycle = skewedMax();
       if (cycleTime <= 0)
         cycleTime += 20000;     // +20 seconds
+
+      // Adjust the remaining event time by the ratio of the new maxCycle / prevMax.
+      light->nextEvent = light->nextEvent * (int32_t)light->maxCycle / prevMax;
     }
     light->retwnkleTime = cycleTime;
   }
