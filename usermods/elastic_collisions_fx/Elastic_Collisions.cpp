@@ -149,13 +149,7 @@ public:
     if (length >= dist || length == 0)
         return; // Already long enough, or degenerate point
 
-    // Normalize direction
-    if (length << 1 == 0) {
-      // handle gracefully, but this shouldn't happen.
-      DEBUG_PRINTLN("At 0 #1");
-      return;
-    }
-    nfixed scale = fixedDiv(dist - length, length << 1);
+\   nfixed scale = fixedDiv(dist - length, length << 1);
 
     nfixed offsetX = fixedMult(dx, scale);
     nfixed offsetY = fixedMult(dy, scale);
